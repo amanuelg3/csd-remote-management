@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_remo" >
+	<LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:background="@color/background_remo">
+    	<TextView
+    		android:layout_width = "fill_parent"
+    		android:layout_height="40dp"
+    		android:textColor="#ffffff"
+    		android:text = "Remote Site Authentication"
+    		android:textAppearance="?android:attr/textAppearanceMedium"  		
+    		android:gravity="center"/>    	
+    </LinearLayout>
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="1dp"
+    	android:background="#ffffff" >    
+    </LinearLayout>
+    
+	<!-- Remote site  -->
+	<LinearLayout
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:background="@color/background_remo">
+    	<TextView
+    		android:id="@+id/location"
+    		android:layout_width = "100dp"
+    		android:layout_height="50dp"
+    		android:textColor="#ffffff"
+    		android:text = "Location"  
+    		android:textAppearance="?android:attr/textAppearanceSmall"   		
+    		android:gravity="center"/>
+    	<TextView
+    		android:id="@+id/phonenumber"
+    		android:layout_width = "100dp"
+    		android:layout_height="50dp"
+    		android:textColor="#ffffff"
+    		android:text = "Phone Number"  
+    		android:textAppearance="?android:attr/textAppearanceSmall"   		
+    		android:gravity="center"/>
+    	<TextView
+    		android:id="@+id/device"
+    		android:layout_width = "100dp"
+    		android:layout_height="50dp"
+    		android:textColor="#ffffff"
+    		android:text = "Device Type"   
+    		android:textAppearance="?android:attr/textAppearanceSmall"  		
+    		android:gravity="center"/>    		
+    </LinearLayout>
+    
+	<!-- Blank Layout -->
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="1dp"
+    	android:background="#ffffff" >    
+    </LinearLayout>
+	<!-- Passcode  -->
+	<LinearLayout
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:background="#1E2D48" android:weightSum="1">
+    	<TextView
+    		android:layout_width = "100dp"
+    		android:layout_height="50dp"
+    		android:textColor="#ffffff"
+    		android:text = "Passcode (3 digits)"    		   		
+    		android:gravity="center" android:layout_weight="0.92"/>
+    	<EditText
+    		android:layout_width = "180dp"
+    		android:layout_height = "50dp"
+    		android:id="@+id/passcode" 
+    		android:password="true"
+    		android:inputType="number"/>
+    </LinearLayout>
+    
+    <!-- Blank Layout -->
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="1dp"
+    	android:background="#ffffff" >    
+    </LinearLayout>
+
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="10dp"
+    	android:background="@color/background_remo" >    
+    </LinearLayout>
+    
+    <LinearLayout
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_gravity="center_horizontal">
+    	<Button
+    		android:id="@+id/passcode_request_button" 
+        	android:text="Authentication"
+        	android:textAppearance="?android:attr/textAppearanceMedium"
+        	android:layout_width="120dp" 
+        	android:layout_height="50dp"
+        	android:layout_gravity="center" 
+        	android:layout_weight="0.05"/>
+    	<Button
+    		android:id="@+id/RemoteNumber_EditButton" 
+        	android:text="Select"
+        	android:textAppearance="?android:attr/textAppearanceMedium"
+        	android:layout_width="120dp" 
+        	android:layout_height="50dp"
+        	android:layout_gravity="center" 
+        	android:layout_weight="0.05"/>
+        	
+        <!-- Test GUI : 나중에 지울 것 -->
+        <Button
+    		android:id="@+id/Next_Button" 
+        	android:text="Next(Test)"
+        	android:textAppearance="?android:attr/textAppearanceMedium"
+        	android:layout_width="120dp" 
+        	android:layout_height="50dp"
+        	android:layout_gravity="center" 
+        	android:layout_weight="0.05"/>
+
+    </LinearLayout>
+    
+    <!-- Blank Layout -->
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="260dp"
+    	android:background="@color/background_remo" >
+    	<TextView
+    		android:layout_width = "fill_parent"
+    		android:layout_height="40dp"
+    		android:textColor="#ffffff"
+    		android:text = "RESULT"
+    		android:textAppearance="?android:attr/textAppearanceMedium" 		
+    		android:gravity="center"
+    		android:background="#344E7D"/>
+    	<ScrollView 			 
+  			android:layout_width="fill_parent"
+  			android:layout_height="260dp">	
+  			<LinearLayout
+    			android:orientation="vertical"
+    			android:layout_width="fill_parent"
+    			android:layout_height="260dp"
+    			android:background="@color/background_remo" >
+				<TextView
+					android:id="@+id/authentication_result"
+    				android:layout_width = "fill_parent"
+    				android:layout_height="fill_parent"
+    				android:textColor="#ffffff"
+    				android:background="@color/background_remo"
+    				android:text = ""
+    				android:textAppearance="?android:attr/textAppearanceSmall"    		
+    				/>
+    		</LinearLayout>
+		</ScrollView>
+    </LinearLayout>    
+</LinearLayout>
