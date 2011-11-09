@@ -9,9 +9,7 @@ import android.util.*;
 import android.view.*;
 import android.widget.*;
 
-
 public class Authentication extends Activity{
-
 	/*
 	 * Message ID
 	 */
