@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"    
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_remo" >
+    
+    <LinearLayout 
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content">
+    	<ImageView
+    		android:id="@+id/img_custom_cmd"
+    		android:src="@drawable/custom_cmd" 
+    		android:layout_gravity="center" 
+    		android:layout_width="50dp" 
+    		android:layout_height="50dp">
+    	</ImageView>
+		<TextView 
+			android:layout_width = "fill_parent"
+			android:layout_height="fill_parent"
+			android:text="Custom Command"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textStyle="bold"
+			android:gravity="center" />
+	</LinearLayout>
+	
+	 <!-- Separator -->
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="1dp"
+    	android:background="#ffffff" >    
+    </LinearLayout>
+    
+    <LinearLayout
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:background="@color/background_remo">
+    	<TextView
+    		android:id="@+id/custom_location"
+    		android:layout_width = "100dp"
+    		android:layout_height="40dp"
+    		android:textColor="#ffffff"
+    		android:text = "Location"  
+    		android:textAppearance="?android:attr/textAppearanceSmall"   		
+    		android:gravity="center"/>
+    	<TextView
+    		android:id="@+id/custom_phonenumber"
+    		android:layout_width = "100dp"
+    		android:layout_height="40dp"
+    		android:textColor="#ffffff"
+    		android:text = "Phone Number"  
+    		android:textAppearance="?android:attr/textAppearanceSmall"   		
+    		android:gravity="center"/>
+    	<TextView
+    		android:id="@+id/custom_device"
+    		android:layout_width = "100dp"
+    		android:layout_height="40dp"
+    		android:textColor="#ffffff"
+    		android:text = "Device Type"   
+    		android:textAppearance="?android:attr/textAppearanceSmall"  		
+    		android:gravity="center"/>    		
+    </LinearLayout>
+    
+    <!-- Separator -->
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="1dp"
+    	android:background="#ffffff" >    
+    </LinearLayout>
+      
+    <!-- Command EditText -->
+	<LinearLayout 
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" 
+		android:weightSum="1"
+		android:background="@color/background_remo" android:baselineAligned="false">
+		<TextView
+			android:layout_height="50dp"
+			android:textColor="#ffffff"
+    		android:text = "Command"
+			android:padding="5dp" 
+			android:textAppearance="?android:attr/textAppearanceSmall" 
+			android:layout_width="wrap_content"
+			android:gravity="center"/>
+		<EditText 
+			android:id="@+id/command_edit"
+			android:layout_gravity="center" 
+			android:padding="10dp" 
+			android:layout_width="246dp" 
+			android:layout_height="78dp"
+			android:gravity="top"/>	
+	</LinearLayout>
+	
+	 <!-- Blank Layout -->
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="2dp">
+    </LinearLayout>
+	
+	<!-- Buttons -->
+	<LinearLayout 
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content">
+    	<Button
+    			android:id="@+id/custom_cmd_send_button" 
+        		android:text="Send Command"
+        		android:layout_width="80dp" 
+        		android:layout_height="50dp"
+        		android:layout_gravity="center" 
+        		android:layout_weight="0.05"
+        		android:textAppearance="?android:attr/textAppearanceMedium"/>
+    	<Button
+    		android:id="@+id/custom_cmd_clear_button" 
+        	android:text="Clear"
+        	android:layout_width="80dp" 
+        	android:layout_height="50dp"
+        	android:layout_gravity="center" 
+        	android:layout_weight="0.05"
+        	android:textAppearance="?android:attr/textAppearanceMedium"/>    	
+    </LinearLayout>
+    
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="35dp"
+    	android:background="@color/background_result" >
+    	<TextView
+    		android:layout_width = "fill_parent"
+    		android:layout_height="fill_parent"
+    		android:textColor="#ffffff"
+    		android:text = "RESULT"
+    		android:textAppearance="?android:attr/textAppearanceMedium" 		
+    		android:gravity="center"/>
+    </LinearLayout>    
+    
+    <ScrollView 			 
+  			android:layout_width="fill_parent"
+  			android:layout_height="248dp">
+  		<LinearLayout
+    			android:orientation="vertical"
+    			android:layout_width="fill_parent"
+    			android:layout_height="248dp"
+    			android:background="@color/background_remo" >  			
+		<TextView
+			android:id="@+id/custom_result_view"
+    		android:layout_width = "fill_parent"
+    		android:layout_height="fill_parent"
+    		android:textColor="@color/white"    		
+    		/>	
+  		</LinearLayout>	
+	</ScrollView>
+</LinearLayout>

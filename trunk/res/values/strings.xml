@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, RemoteManagementActivity!</string>
+    <string name="app_name">Condroid Remote Management System</string>
+    <string name="version">ver 1.0</string>
+</resources>
