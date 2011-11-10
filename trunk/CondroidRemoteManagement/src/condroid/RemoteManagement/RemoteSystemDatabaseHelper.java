@@ -5,14 +5,37 @@ import android.util.*;
 import android.content.Context;
 
 import condroid.RemoteManagement.RemoteSystemDatabase.RemoteSiteDB;
-import condroid.RemoteManagement.RemoteSystemDatabase.OpticalAMP;
+import condroid.RemoteManagement.RemoteSystemDatabase.DeviceCommandDB;
 
 public class RemoteSystemDatabaseHelper extends SQLiteOpenHelper{
 
     private static final String DATABASE_NAME = "crm_database.db";
     private static final int DATABASE_VERSION = 1;
-        
-    RemoteSystemDatabaseHelper(Context context) {
+    /*
+    private static final String CREATE_TABLE_1 =
+    	" create table " + table1 +
+    	" (_id integer primary key autoincrement," +
+    	" title text not null, body text not null);";
+
+    	private static final String CREATE_TABLE_2 =
+    	" create table " + TAGS_TABLE +
+    	" (_id integer primary key autoincrement," +
+    	" tagName text not null)";
+    */	
+    private static final String CREATE_REMOTE_SITE_TABLE = 
+    				" create table " + RemoteSiteDB.TABLE_NAME + 
+    				" (" + RemoteSiteDB.ID + " integer primary key autoincrement," +
+    					RemoteSiteDB.LOCATION + " text not null, " +
+    					RemoteSiteDB.PHONE_NUMBER + " text not null, " +
+    					RemoteSiteDB.DEVICE_ID + " text not null);";
+    
+    private static final String CREATE_DEVICE_CMD_TABLE = 
+    				" create table " + DeviceCommandDB.TABLE_NAME + 
+    				" (" + DeviceCommandDB.ID + " integer primary key autoincrement," +
+    					DeviceCommandDB.TYPE + " text not null, " +
+    					DeviceCommandDB.COMMAND + " text not null);";
+    
+    public RemoteSystemDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         Log.i("remo", "Create Database : " + DATABASE_NAME);
     }
@@ -28,35 +51,24 @@ public class RemoteSystemDatabaseHelper extends SQLiteOpenHelper{
 		//	remote_site_phone INTEGER,
 		//	remote_site_device_id INTEGER);
 		//공백 주의: 반드시 변수명과 타입사이에는 공백이 있어야 함.
-		db.execSQL("CREATE TABLE " + RemoteSiteDB.TABLE_NAME+ " ("
-                + RemoteSiteDB.ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
-                + RemoteSiteDB.LOCATION + " TEXT,"
-                + RemoteSiteDB.PHONE_NUMBER + " TEXT, "
-                + RemoteSiteDB.DEVICE_ID + " TEXT" 
-                + ");");
-		
-		Log.i("remo", "Create RemoteSiteDB table");
-		
-		// Create the DeviceNameDB table
-		// CREATE TABLE table_optical_amp(
-		//	id INTEGER PRIMARY KEY AUTOINCREMENT,
-		//	command TEXT NOT NULL);
-
-		//공백 주의: 반드시 변수명과 타입사이에는 공백이 있어야 함.
-		
-		db.execSQL("CREATE TABLE " + OpticalAMP.TABLE_NAME + " ("
-				+ OpticalAMP.ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
-				+ OpticalAMP.COMMAND + " TEXT"
-				+ ");");
+		try
+		{
+			db.execSQL(CREATE_REMOTE_SITE_TABLE);
+			db.execSQL(CREATE_DEVICE_CMD_TABLE);
+		}
+		catch(SQLiteException e) 
+		{
+			Log.e("db",e.toString());
+		}
 				
-		Log.i("remo", "Created: RemoteSiteDB, DeviceNameDB");
-	
+		Log.i("remo", "Created tables: RemoteSiteDB, DeviceCommandDB");
+		
 	}
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS " + RemoteSiteDB.TABLE_NAME);
-		db.execSQL("DROP TABLE IF EXISTS " + OpticalAMP.TABLE_NAME);
+		db.execSQL("DROP TABLE IF EXISTS " + DeviceCommandDB.TABLE_NAME);
 		onCreate(db);
 		
 	}

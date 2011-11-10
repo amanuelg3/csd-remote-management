@@ -52,7 +52,7 @@
     	<EditText 
     		android:layout_width="170dp" 
         	android:layout_height="wrap_content" 
-        	android:id="@+id/remote_site_phonenumber"        	
+        	android:id="@+id/remote_site_phone"        	
         	android:inputType="phone"
         	android:textAppearance="?android:attr/textAppearanceMedium"/>
     </LinearLayout>

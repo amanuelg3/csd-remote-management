@@ -39,15 +39,21 @@ public class RemoteSiteDBManagerActivity extends Activity{
 	final static int COL_LOCATION = 1;
 	final static int COL_PHONENUMBER = 2;
 	final static int COL_DEVICEID = 3;
-	// Database
+
+	/*
+	 * Database classes
+	 */
 	RemoteSystemDatabaseHelper mDBHelper;
 	SQLiteDatabase mDatabase;	
 	public Cursor mCursor = null;
 	
 	RemoteSiteDB mRemoteSiteItem;
-	
+	//DeviceCommandDB mDeviceCommandDB;
 	Long mRemoteDBRowId;	// the number of rows which was inserted
 	
+	/*
+	 * Widgets
+	 */
 	// Radio Group Control
 	RadioGroup mRadioDevice;
 	
@@ -75,17 +81,23 @@ public class RemoteSiteDBManagerActivity extends Activity{
 		
 		Log.i("remo", "RemoteSiteDBManagerActivity");
 		
-		mRemoteSiteItem = new RemoteSiteDB();
+		mDBHelper = new RemoteSystemDatabaseHelper(this);
+		mDatabase = mDBHelper.getWritableDatabase();
+
+		mRemoteSiteItem = new RemoteSiteDB();	
+		//mDeviceCommandDB = new DeviceCommandDB();
 		
 		mRemoteDBRowId = null;
 		mSelectedId = 0;
 		
-		editLocation = (EditText)findViewById(R.id.remote_site_location_text);
-		editPhoneNumber = (EditText)findViewById(R.id.remote_site_phonenumber);
+		
+		editLocation = (EditText)findViewById(R.id.remote_site_location_text);		
+		editPhoneNumber = (EditText)findViewById(R.id.remote_site_phone);
 		
 		// Radio Button 
-		mRadioDevice = (RadioGroup)findViewById(R.id.radio_group_device);
+		mRadioDevice = (RadioGroup)findViewById(R.id.radio_group_device);		
 		mRadioDevice.setOnCheckedChangeListener(mCheckedChangeListener);
+		
 		
 		// ListView for RemoteSite database
 		mRemoteSiteList = (ListView)findViewById(R.id.remote_site_list);
@@ -98,14 +110,6 @@ public class RemoteSiteDBManagerActivity extends Activity{
 		Button clearRemoteSiteButton = (Button)findViewById(R.id.remote_site_clear_button);
 		clearRemoteSiteButton.setOnClickListener(mClickListener);
 		
-		// ListView Control Buttons : Edit, Delete List items and move backward 
-		/*
-		Button deleteRemoteSiteButton = (Button)findViewById(R.id.remote_site_delete_button);
-		deleteRemoteSiteButton.setOnClickListener(mClickListener);
-		
-		Button okRemoteSiteButton = (Button)findViewById(R.id.remote_site_ok_button);
-		okRemoteSiteButton.setOnClickListener(mClickListener);
-		*/
 	}
 	
 	@Override
@@ -114,15 +118,6 @@ public class RemoteSiteDBManagerActivity extends Activity{
 		//차후 구현
 		super.onPause();
 		
-		if(mDBHelper != null)
-		{
-			mDBHelper.close();
-		}
-		
-		if(mDatabase != null)
-		{
-			mDatabase.close();
-		}
 
 	}
 
@@ -131,8 +126,6 @@ public class RemoteSiteDBManagerActivity extends Activity{
 		// TODO Auto-generated method stub
 		super.onResume();
 	
-		mDBHelper = new RemoteSystemDatabaseHelper(this);
-		mDatabase = mDBHelper.getWritableDatabase();
 		
 		mRemoteLocation = "";
 		mRemotePhoneNumber = "";
@@ -148,6 +141,17 @@ public class RemoteSiteDBManagerActivity extends Activity{
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+		
+		if(mDBHelper != null)
+		{
+			mDBHelper.close();
+		}
+		
+		if(mDatabase != null)
+		{
+			mDatabase.close();
+		}
+
 	}
 	
 	/*=============================================================================
@@ -159,6 +163,8 @@ public class RemoteSiteDBManagerActivity extends Activity{
 	 *=============================================================================*/			
 	public void showAllRemoteSiteList()
 	{
+		Log.i("remo", "showAllRemoteSiteList");
+		
 		mCursor = queryAllRemoteSite(mDatabase);
 		
 		mRemoteDBRowId = Long.valueOf(mCursor.getCount());
@@ -427,7 +433,7 @@ public class RemoteSiteDBManagerActivity extends Activity{
 		}
 		else
 		{
-			Log.i("remo", "insertSiteToDatabase()");
+			//Log.i("remo", "insertSiteToDatabase()");
 			ContentValues values = createContentValues(mRemoteLocation,
 														mRemotePhoneNumber,
 														mRemoteDeviceType);
@@ -537,8 +543,6 @@ public class RemoteSiteDBManagerActivity extends Activity{
 	 *=============================================================================*/	
 	public Cursor queryAllRemoteSite(SQLiteDatabase db)
 	{
-		
-		//return db.query(RemoteSiteDB.TABLE_NAME, arrColumns, null, null, null, null, null);
 		
 		return db.rawQuery("SELECT * FROM " + RemoteSiteDB.TABLE_NAME + " ORDER BY "
 							+ RemoteSiteDB.DEFAULT_SORT_ORDER, null);

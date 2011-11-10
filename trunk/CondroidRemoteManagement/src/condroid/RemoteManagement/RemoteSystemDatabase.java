@@ -51,22 +51,19 @@ public final class RemoteSystemDatabase {
         }
 	}
 	
-	public static final class OpticalAMP{
-		private OpticalAMP() {}
+	public static final class DeviceCommandDB{
+		private DeviceCommandDB() {}
 		
 		// DEVICE_TABLE_NAME: table_device_name
-		// +----+---------+-----------+
-		// | id | command |   value   | 
-		// +----+---------+-----------+
-		// | INT|   TEXT  |  INTEGER  |
-		// +----+---------+-----------+
-		// Value: 	Optical Amplifier = 0001 (0x1)
-		//			Wifi Repeater 	  = 0010 (0x2)
-		//			Water sensor 	  = 0100 (0x4)
-		//			etc				  = 1000 (0x8)
+		// +----+-------+-----------+
+		// | id | type  |  command  | 
+		// +----+-------+-----------+
+		// | INT| TEXT  |   TEXT    |
+		// +----+-------+-----------+
 
-		public static final String TABLE_NAME = "table_optical_amp";
+		public static final String TABLE_NAME = "table_device_cmd";
 		public static final String ID = "_id";
+		public static final String TYPE = "type";
 		public static final String COMMAND = "command";
 		
 		public static final String DEFAULT_SORT_ORDER = "command ASC";
