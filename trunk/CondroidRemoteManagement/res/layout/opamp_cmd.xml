@@ -100,22 +100,19 @@
     </LinearLayout>
     
     <!-- ListView -->
-	<ScrollView
-		android:layout_width="fill_parent" android:layout_height="270dp">    
+	    
     <LinearLayout
     	android:orientation="vertical"
     	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
+    	android:layout_height="270dp"
     	android:background="@color/background_blue">
 		<ListView 
 			android:id="@+id/opamp_cmd_list" 
-			android:layout_width="fill_parent" android:layout_height="270dp">
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:transcriptMode="alwaysScroll">
 		</ListView>
 	</LinearLayout>
-	</ScrollView>
-	
-	
-	
+		
 	 <!-- Database Delete Button  -->
      <LinearLayout
        	android:orientation="horizontal"
@@ -131,7 +128,7 @@
         	android:layout_weight="1"/>
         <Button
         	android:id="@+id/opamp_delete_button"
-        	android:text="Clear"
+        	android:text="Delete"
         	android:textAppearance="?android:attr/textAppearanceMedium"
         	android:layout_width="100dp"
         	android:layout_height="50dp"

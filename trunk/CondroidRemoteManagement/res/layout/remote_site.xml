@@ -5,21 +5,10 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/background_remo">
-	
-	<ScrollView 
-		android:layout_height="wrap_content" 
-  		android:layout_width="fill_parent">	
-	
-	    
-    <LinearLayout 
-    	android:orientation="vertical"
-    	android:layout_width="fill_parent" android:layout_height="481dp">
-    	
     <!-- Location -->
     <LinearLayout 
     	android:orientation="horizontal"
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent">
+    	android:layout_width="fill_parent" android:layout_height="wrap_content">
     	<TextView
     		android:layout_width = "140dp"
     		android:layout_height="40dp"
@@ -130,16 +119,18 @@
     </LinearLayout>
     
     <!-- ListView -->
+	    
     <LinearLayout
     	android:orientation="vertical"
     	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
+    	android:layout_height="286dp"
     	android:background="@color/background_blue">
 		<ListView 
 			android:id="@+id/remote_site_list" 
-			android:layout_width="fill_parent" android:layout_height="240dp">
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:transcriptMode="alwaysScroll">
 		</ListView>
-	</LinearLayout>   
 	</LinearLayout>
-	</ScrollView>
- </LinearLayout>
+	
+	   
+</LinearLayout>	
