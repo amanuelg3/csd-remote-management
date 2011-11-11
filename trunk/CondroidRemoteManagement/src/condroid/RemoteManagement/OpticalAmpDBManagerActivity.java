@@ -45,7 +45,7 @@ public class OpticalAmpDBManagerActivity extends Activity
 	String mCommandName;	// Connected to Edit Text
 	
 	Long mCommandDBRowId;	// the number of rows which was inserted
-	long mSelectedItem;		// a selected item in ListView widget
+	Long mSelectedItem;		// a selected item in ListView widget
 	/*
 	 * Widgets
 	 */
@@ -75,7 +75,7 @@ public class OpticalAmpDBManagerActivity extends Activity
 		mDeviceType = DEVICE_OPAMP;
 		mCommandName = "";
 		mCommandDBRowId = null;
-		mSelectedItem = 0;
+		mSelectedItem = null;
 		
 		// Radio group checked change listener
 		mRadioDevice = (RadioGroup)findViewById(R.id.opamp_radio_group_device);
@@ -219,7 +219,7 @@ public class OpticalAmpDBManagerActivity extends Activity
 			// Delete Button => Move to Authentication.java (Authentication.xml)
 			if(which == DialogInterface.BUTTON1)
 			{
-				Log.i("remo", "Delete Selected Item: " + mSelectedItem);
+				Log.i("cmd", "Delete Selected Item: " + mSelectedItem);
 				deleteCommandItem(mSelectedItem);				
 			}
 			
@@ -257,7 +257,7 @@ public class OpticalAmpDBManagerActivity extends Activity
 	private void showAllCommandList()
 	{
 		mCursor = queryAllCommands(mCmdDatabase);
-		Log.i("opamp", "DeviceCommandDB: Count= " + mCursor.getCount());		
+		Log.i("cmd", "DeviceCommandDB: Count= " + mCursor.getCount());		
 		
 		mCommandDBRowId = Long.valueOf(mCursor.getCount());
 	
@@ -299,6 +299,7 @@ public class OpticalAmpDBManagerActivity extends Activity
 	
 	public void clearCmdEditText()
 	{
+		mCommandName = "";
 		mCmdEditText.setText("");
 		
 		// Set default value and check optical ampl radio button
@@ -341,7 +342,6 @@ public class OpticalAmpDBManagerActivity extends Activity
 		
 		mCommandName = mCmdEditText.getText().toString();
 		
-		Log.i("opamp", "insertCommandToDatabase: " + mCommandName + " " + mDeviceType);
 		if(mDeviceType.length() == 0)
 			mDeviceType = DEVICE_OPAMP;
 
@@ -363,17 +363,17 @@ public class OpticalAmpDBManagerActivity extends Activity
 				row = mCmdDatabase.insert(DeviceCommandDB.TABLE_NAME, null, values);
 				mCommandDBRowId = row;
 				
-				Log.i("opamp", "insert[" + mCommandDBRowId + "] " + mCommandName);
+				Log.i("cmd", "insert[" + mCommandDBRowId + "] " + mCommandName);
 			}
 			else
 			{
-				Log.i("opamp", "update: " + mCommandName);
+				Log.i("cmd", "update: " + mCommandName);
 				
 				//int update (String table, ContentValues values, 
 				//				String whereClause, String[] whereArgs)
-				
+				String[] where = {mCommandName};
 				mCmdDatabase.update(DeviceCommandDB.TABLE_NAME, values, 
-								DeviceCommandDB.COMMAND + "=" + mCommandName, null);				
+								DeviceCommandDB.COMMAND + "=?", where);				
 			}
 		
 			//db.close();
@@ -383,10 +383,10 @@ public class OpticalAmpDBManagerActivity extends Activity
 		
 	}
 	/*=============================================================================
-	 * Name: checkDuplicatedPhoneNumber
+	 * Name: checkDuplicatedCommand
 	 * 
 	 * Description:
-	 * 		duplication check of phone number 
+	 * 		duplication check of command 
 	 *=============================================================================*/	
 	public Cursor checkDuplicatedCommand(String command)
 	{
@@ -395,14 +395,14 @@ public class OpticalAmpDBManagerActivity extends Activity
 		String[] columns = new String[] {DeviceCommandDB.ID,
 											DeviceCommandDB.TYPE,
 											DeviceCommandDB.COMMAND};
-		Log.i("opamp", "checkDuplicatedCommand");
+		Log.i("cmd", "checkDuplicatedCommand");
 		try
 		{
 
 			cursor = mCmdDatabase.query(DeviceCommandDB.TABLE_NAME, columns, 
-									DeviceCommandDB.COMMAND + "=?", new String[]{command}, null, null, null);
-			Log.e("opamp", "cursor.getCount(): " + cursor.getCount());
-			
+									DeviceCommandDB.COMMAND + "=?", 
+									new String[]{command}, null, null, null);
+						
 			if(cursor.getCount() == 0)
 			{
 				cursor = null;
@@ -411,9 +411,9 @@ public class OpticalAmpDBManagerActivity extends Activity
 			{
 				while(cursor.moveToNext())
 				{
-					Log.e("opamp", "index: " + cursor.getString(0));
-					Log.e("opamp", "type: " + cursor.getString(1));
-					Log.e("opamp", "command: " + cursor.getString(2));				
+					Log.e("cmd", "index: " + cursor.getString(0));
+					Log.e("cmd", "type: " + cursor.getString(1));
+					Log.e("cmd", "command: " + cursor.getString(2));				
 				}
 			}
 			
@@ -421,7 +421,7 @@ public class OpticalAmpDBManagerActivity extends Activity
 		catch(SQLiteException e)
 		{
 			cursor = null;
-			Log.e("opamp", e.toString());
+			Log.e("cmd", e.toString());
 		}
 		
 		
@@ -440,7 +440,7 @@ public class OpticalAmpDBManagerActivity extends Activity
 		
 		values.put(DeviceCommandDB.TYPE, type);
 		values.put(DeviceCommandDB.COMMAND, command);
-		Log.i("opamp", "type:"+ type + " command:" + command);
+		
 		return values;
 	}
 
@@ -455,7 +455,7 @@ public class OpticalAmpDBManagerActivity extends Activity
 		Cursor cursor = null;
 		cursor = db.rawQuery(" select * from " + DeviceCommandDB.TABLE_NAME + " order by "
 							+ DeviceCommandDB.DEFAULT_SORT_ORDER, null);
-		Log.i("opamp", "queryAll: cursor= " + cursor);
+		Log.i("cmd", "queryAll: cursor= " + cursor);
 		return cursor;
 	}
 	/*=============================================================================
@@ -482,13 +482,13 @@ public class OpticalAmpDBManagerActivity extends Activity
 			}
 			else
 			{
-				Log.i("opamp", "cursor is null");
+				Log.i("cmd", "cursor is null");
 			}
 
 		}
 		catch(Exception e)
 		{
-			Log.e("opamp", e.getMessage());
+			Log.e("cmd", e.getMessage());
 		}
 		
 		return cursor;
@@ -499,12 +499,18 @@ public class OpticalAmpDBManagerActivity extends Activity
 	 * Description:
 	 * 		delete a row from RemoteSiteDB database 
 	 *=====================================================================================*/
-	public void deleteCommandItem(long rowId)
+	public void deleteCommandItem(Long rowId)
 	{
 		int deletedRow;
+
+		String[] whereArgs = {rowId.toString()};
+		
+		// int delete(String table, String whereClause, String[] whereArgs);
 		deletedRow = mCmdDatabase.delete(DeviceCommandDB.TABLE_NAME, 
-										DeviceCommandDB.ID + "=" + rowId, null);
-		Log.i("opamp", "deleteRemoteSite: " + deletedRow);
+										DeviceCommandDB.ID + "=?", 
+										whereArgs);
+		
+		Log.i("cmd", "deleteCommandItem: " + deletedRow);
 		
 		mCursor.requery();		
 	}
