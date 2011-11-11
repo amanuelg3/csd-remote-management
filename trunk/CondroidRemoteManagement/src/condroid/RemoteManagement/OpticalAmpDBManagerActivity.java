@@ -445,10 +445,10 @@ public class OpticalAmpDBManagerActivity extends Activity
 	}
 
 	/*=============================================================================
-	 * Name: queryAllRemoteSite
+	 * Name: queryAllCommands
 	 * 
 	 * Description:
-	 * 		Query all items from RemoteSiteDB
+	 * 		Query all items from DeviceCommandDB
 	 *=============================================================================*/	
 	private Cursor queryAllCommands(SQLiteDatabase db)
 	{
@@ -471,11 +471,18 @@ public class OpticalAmpDBManagerActivity extends Activity
 										DeviceCommandDB.TYPE,
 										DeviceCommandDB.COMMAND };
 		
+		String id = Long.toString(rowId);
+		
 		try 
 		{
+			/*
 			cursor = mCmdDatabase.query(true, DeviceCommandDB.TABLE_NAME, columns, 
 										DeviceCommandDB.ID + " = " + rowId, 
 										null, null, null, null, null);
+			*/
+			cursor = mCmdDatabase.query(DeviceCommandDB.TABLE_NAME, columns, 
+					DeviceCommandDB.ID + " =? ", new String[] {id}, null, null, null);
+
 			if(cursor != null)
 			{
 				cursor.moveToFirst();
@@ -488,6 +495,7 @@ public class OpticalAmpDBManagerActivity extends Activity
 		}
 		catch(Exception e)
 		{
+			cursor = null;
 			Log.e("cmd", e.getMessage());
 		}
 		
