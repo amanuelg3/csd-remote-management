@@ -6,12 +6,14 @@ import android.content.*;
 import android.database.*;
 
 import android.database.sqlite.*;
+import android.graphics.drawable.*;
 import android.os.*;
 import android.util.*;
 import android.view.*;
 import android.widget.*;
 
 import condroid.RemoteManagement.RemoteSystemDatabase.*;
+
 public class OpticalAmpDBManagerActivity extends Activity
 {
 	/* 
@@ -31,9 +33,10 @@ public class OpticalAmpDBManagerActivity extends Activity
 	/*
 	 * Database classes
 	 */
-	RemoteSystemDatabaseHelper mDBHelper;
-	SQLiteDatabase mCmdDatabase;	
+	private RemoteSystemDatabaseHelper mDBHelper;
+	private SQLiteDatabase mCmdDatabase;	
 	private Cursor mCursor = null;
+	private DeviceCommandDB mDeviceCommandDB;
 
 	/*
 	 * Member variables
@@ -42,6 +45,7 @@ public class OpticalAmpDBManagerActivity extends Activity
 	String mCommandName;	// Connected to Edit Text
 	
 	Long mCommandDBRowId;	// the number of rows which was inserted
+	long mSelectedItem;		// a selected item in ListView widget
 	/*
 	 * Widgets
 	 */
@@ -66,9 +70,12 @@ public class OpticalAmpDBManagerActivity extends Activity
 		mDBHelper = new RemoteSystemDatabaseHelper(this);
 		mCmdDatabase = mDBHelper.getWritableDatabase();
 
+		mDeviceCommandDB = new DeviceCommandDB();
+		
 		mDeviceType = DEVICE_OPAMP;
 		mCommandName = "";
 		mCommandDBRowId = null;
+		mSelectedItem = 0;
 		
 		// Radio group checked change listener
 		mRadioDevice = (RadioGroup)findViewById(R.id.opamp_radio_group_device);
@@ -81,24 +88,18 @@ public class OpticalAmpDBManagerActivity extends Activity
 		// Button click listener
 		mOpAmpCmdAddButton = (Button)findViewById(R.id.opamp_cmd_add_button);
 		mOpAmpCmdClearButton = (Button)findViewById(R.id.opamp_cmd_clear_button);
-		mOpAmpBackButton = (Button)findViewById(R.id.opamp_back_button);
-		mOpAmpDeleteButton = (Button)findViewById(R.id.opamp_delete_button);
 		
 		mOpAmpCmdAddButton.setOnClickListener(mClickListener);
 		mOpAmpCmdClearButton.setOnClickListener(mClickListener);
-		mOpAmpBackButton.setOnClickListener(mClickListener);
-		mOpAmpDeleteButton.setOnClickListener(mClickListener);
 		
 		// ListView in opamp_cmd.xml
 		mCommandDBList = (ListView)findViewById(R.id.opamp_cmd_list);
-		//mCommandDBList.setOnItemClickListener(mCmdItemClickListener);
-
+		mCommandDBList.setOnItemClickListener(mCmdItemClickListener);
 		
 	}
 
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 
 		if(mCmdDatabase != null)
@@ -123,11 +124,11 @@ public class OpticalAmpDBManagerActivity extends Activity
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		
-		
+			
 		mDeviceType = DEVICE_OPAMP;		// Default value
 		
 		showAllCommandList();
+		
 	}
 	
 	RadioGroup.OnCheckedChangeListener mOpAmpCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
@@ -169,10 +170,62 @@ public class OpticalAmpDBManagerActivity extends Activity
 	{
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 		{
+			Cursor cursor = null;
+			String message = "Selected Command:" + "\n";
 			
+			mSelectedItem = id;
+			cursor = queryCommandItem(id);
+			startManagingCursor(cursor);
+
+			String type = cursor.getString(COL_TYPE);
+			String command = cursor.getString(COL_COMMAND);
+			
+			/*
+			 * Store selected item to DeviceCommandDB's member variables 
+			 */		
+			mDeviceCommandDB.setDeviceCommandItem(type, command);
+			
+			
+			message += type + " / " + command;
+						
+			AlertDialog.Builder alertDlg 
+						= new AlertDialog.Builder(OpticalAmpDBManagerActivity.this);
+
+			alertDlg.setTitle("Command database");
+			alertDlg.setMessage(message);
+			alertDlg.setIcon(R.drawable.icon);			
+			alertDlg.setPositiveButton("Delete", mClickDialogButton);			
+			alertDlg.setNegativeButton("Cancel", mClickDialogButton);
+			alertDlg.setCancelable(false);
+			
+			alertDlg.show();
+			
+
 		}
 	};
 	
+	/*=============================================================================
+	 * Name: mClickDialogButton
+	 * 
+	 * Description:
+	 * 		- Callback function of alert dialog's buttons
+	 * 		- OK, Delete Button in the alert dialog
+	 *=============================================================================*/	
+	DialogInterface.OnClickListener mClickDialogButton = new DialogInterface.OnClickListener() {
+		
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+						
+			// Delete Button => Move to Authentication.java (Authentication.xml)
+			if(which == DialogInterface.BUTTON1)
+			{
+				Log.i("remo", "Delete Selected Item: " + mSelectedItem);
+				deleteCommandItem(mSelectedItem);				
+			}
+			
+		}
+	};
+
 	Button.OnClickListener mClickListener = new View.OnClickListener() 
 	{
 	
@@ -190,19 +243,10 @@ public class OpticalAmpDBManagerActivity extends Activity
 				// Clear Command Edit Text widget
 				clearCmdEditText();
 				break;
-			case R.id.opamp_back_button:
-				//Move back to the previous activity
-				Intent intent = new Intent(OpticalAmpDBManagerActivity.this, OpticalAmpActivity.class);
-				startActivity(intent);
-				break;
-			case R.id.opamp_delete_button:
-				// Delete the selected command item 
-				break;
 			}
 		}
 	};
 
-	
 	/*=============================================================================
 	 * Name: showAllRemoteSiteList
 	 * 
@@ -210,23 +254,19 @@ public class OpticalAmpDBManagerActivity extends Activity
 	 * 		- Extract RemoteSiteDB and display items
 	 * 		
 	 *=============================================================================*/			
-	public void showAllCommandList()
+	private void showAllCommandList()
 	{
-		Log.i("opamp", "showAllCommandList()");
-		
 		mCursor = queryAllCommands(mCmdDatabase);
-		
-		Log.i("opamp", "mCursor: " + mCursor);
+		Log.i("opamp", "DeviceCommandDB: Count= " + mCursor.getCount());		
 		
 		mCommandDBRowId = Long.valueOf(mCursor.getCount());
-		Log.i("opamp", "DeviceCommandDB: Count= " + mCursor.getCount());	
 	
 		mCursor.moveToFirst();
 		startManagingCursor(mCursor);
 		
 		String[] from = new String[] {DeviceCommandDB.TYPE, DeviceCommandDB.COMMAND};
 		
-		// the elements of cmd_list.xml 
+		 
 		int[] to = new int[] {R.id.cmd_list_device_type, R.id.cmd_list_command_name};
 		
 		// ListView for displaying items in opamp_cmd_db.xml
@@ -340,6 +380,7 @@ public class OpticalAmpDBManagerActivity extends Activity
 			clearCmdEditText();
 		}
 		showAllCommandList();
+		
 	}
 	/*=============================================================================
 	 * Name: checkDuplicatedPhoneNumber
@@ -357,9 +398,9 @@ public class OpticalAmpDBManagerActivity extends Activity
 		Log.i("opamp", "checkDuplicatedCommand");
 		try
 		{
+
 			cursor = mCmdDatabase.query(DeviceCommandDB.TABLE_NAME, columns, 
-									DeviceCommandDB.COMMAND + " = " + command,
-									null, null, null, null, null);
+									DeviceCommandDB.COMMAND + "=?", new String[]{command}, null, null, null);
 			Log.e("opamp", "cursor.getCount(): " + cursor.getCount());
 			
 			if(cursor.getCount() == 0)
@@ -379,6 +420,7 @@ public class OpticalAmpDBManagerActivity extends Activity
 		}
 		catch(SQLiteException e)
 		{
+			cursor = null;
 			Log.e("opamp", e.toString());
 		}
 		
@@ -398,7 +440,7 @@ public class OpticalAmpDBManagerActivity extends Activity
 		
 		values.put(DeviceCommandDB.TYPE, type);
 		values.put(DeviceCommandDB.COMMAND, command);
-			
+		Log.i("opamp", "type:"+ type + " command:" + command);
 		return values;
 	}
 
@@ -408,7 +450,7 @@ public class OpticalAmpDBManagerActivity extends Activity
 	 * Description:
 	 * 		Query all items from RemoteSiteDB
 	 *=============================================================================*/	
-	public Cursor queryAllCommands(SQLiteDatabase db)
+	private Cursor queryAllCommands(SQLiteDatabase db)
 	{
 		Cursor cursor = null;
 		cursor = db.rawQuery(" select * from " + DeviceCommandDB.TABLE_NAME + " order by "
@@ -425,11 +467,9 @@ public class OpticalAmpDBManagerActivity extends Activity
 	public Cursor queryCommandItem(long rowId) throws SQLException
 	{
 		Cursor cursor = null;
-		String[] columns = new String[] { 
-											DeviceCommandDB.ID,
-											DeviceCommandDB.TYPE,
-											DeviceCommandDB.COMMAND
-											};
+		String[] columns = new String[] {DeviceCommandDB.ID,
+										DeviceCommandDB.TYPE,
+										DeviceCommandDB.COMMAND };
 		
 		try 
 		{
@@ -449,7 +489,6 @@ public class OpticalAmpDBManagerActivity extends Activity
 		catch(Exception e)
 		{
 			Log.e("opamp", e.getMessage());
-			
 		}
 		
 		return cursor;

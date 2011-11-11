@@ -104,36 +104,13 @@
     <LinearLayout
     	android:orientation="vertical"
     	android:layout_width="fill_parent"
-    	android:layout_height="270dp"
+    	android:layout_height="320dp"
     	android:background="@color/background_blue">
 		<ListView 
 			android:id="@+id/opamp_cmd_list" 
 			android:layout_width="fill_parent" android:layout_height="fill_parent"
-			android:transcriptMode="alwaysScroll">
+			>
 		</ListView>
 	</LinearLayout>
 		
-	 <!-- Database Delete Button  -->
-     <LinearLayout
-       	android:orientation="horizontal"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content">
-       	<Button 
-        	android:id="@+id/opamp_back_button" 
-        	android:text="Back"
-        	android:textAppearance="?android:attr/textAppearanceMedium"
-        	android:layout_width="100dp"
-        	android:layout_height="50dp" 
-        	android:layout_gravity="center"         	 
-        	android:layout_weight="1"/>
-        <Button
-        	android:id="@+id/opamp_delete_button"
-        	android:text="Delete"
-        	android:textAppearance="?android:attr/textAppearanceMedium"
-        	android:layout_width="100dp"
-        	android:layout_height="50dp"
-        	android:layout_gravity="center"        	 
-        	android:layout_weight="1"/>    
-    </LinearLayout>
-
  </LinearLayout>

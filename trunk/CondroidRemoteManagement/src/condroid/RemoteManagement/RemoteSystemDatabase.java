@@ -52,7 +52,6 @@ public final class RemoteSystemDatabase {
 	}
 	
 	public static final class DeviceCommandDB{
-		private DeviceCommandDB() {}
 		
 		// DEVICE_TABLE_NAME: table_device_name
 		// +----+-------+-----------+
@@ -68,8 +67,27 @@ public final class RemoteSystemDatabase {
 		
 		public static final String DEFAULT_SORT_ORDER = "command ASC";
 		
-	
+        public String mDeviceType;
+        public String mCommand;
 
+		public DeviceCommandDB() 
+		{
+			mDeviceType = "";
+			mCommand = "";
+		}
+		
+        public void setDeviceCommandItem(String type, String command)
+        {
+        	mDeviceType = type;
+        	mCommand = command;
+        }
+        
+        public String[] getDeviceCommandItem()
+        {
+        	String[] item = {mDeviceType, mCommand};
+        	
+        	return item;
+        }
 	}
 	
 

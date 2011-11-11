@@ -2,16 +2,28 @@ package condroid.RemoteManagement;
 
 import android.app.*;
 import android.content.*;
+import android.database.*;
+import android.database.sqlite.*;
 import android.os.*;
 import android.telephony.*;
 import android.util.*;
 import android.view.*;
 import android.widget.*;
 
+import condroid.RemoteManagement.RemoteSystemDatabase.*;
+
 public class OpticalAmpActivity extends Activity{
 	final static int MSG_ID_SENT = 0;
 	final static int MSG_ID_RECEIVED = 1;
 	final static int MSG_ID_ERROR = 2;
+
+	/*
+	 * Database classes
+	 */
+	private RemoteSystemDatabaseHelper mDBHelper;
+	private SQLiteDatabase mCmdDatabase;	
+	private Cursor mCursor = null;
+	private DeviceCommandDB mDeviceCommandDB;
 
 	/*
 	 * SMS variables
@@ -35,7 +47,7 @@ public class OpticalAmpActivity extends Activity{
 	/*
 	 * SMS Message
 	 */
-	private String mOpAmpCommand;
+	private String mOpAmpCommand;	
 	
 	private String mSender="";
 	/*
@@ -56,13 +68,18 @@ public class OpticalAmpActivity extends Activity{
 	 * Spinner
 	 */
 	Spinner mOpAmpCommandSpinner;
-	String mSelectedCommand;
+	String mSelectedCommand;	// Command selected in Spinner widget
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.opamp);
 		
+		mDBHelper = new RemoteSystemDatabaseHelper(this);
+		mCmdDatabase = mDBHelper.getReadableDatabase();
+
+		mDeviceCommandDB = new DeviceCommandDB();
+
 		smsData = new SMSData();
 		initMemberVariables();
 		
@@ -90,10 +107,14 @@ public class OpticalAmpActivity extends Activity{
 		 * Spinner
 		 */
 		mOpAmpCommandSpinner = (Spinner)findViewById(R.id.opamp_cmd_spinner);
-		
+		mOpAmpCommandSpinner.setOnItemSelectedListener(mItemSelectedListener);
+		// Display remote site information which was selected in Authentication process
 		getRemoteSiteInfo();
 		showRemoteSiteInfo();
 		
+		// Connect database item to Spinner widget
+		Log.i("opamp", "showAllCommandListToSpinner");
+		showAllCommandListToSpinner();
 	}
 
 	@Override
@@ -213,6 +234,16 @@ public class OpticalAmpActivity extends Activity{
 			Log.e("sms", "Failed to unregister smsMsgIncoming");
 		}
 
+		if(mCmdDatabase != null)
+		{
+			mCmdDatabase.close();
+		}
+
+		if(mDBHelper != null)
+		{
+			mDBHelper.close();
+		}
+
 		super.onDestroy();
 	}
 	/*
@@ -240,6 +271,27 @@ public class OpticalAmpActivity extends Activity{
 		}
 	};
 	
+	/*
+	 * Spinner widget: item selection listener
+	 */
+	private AdapterView.OnItemSelectedListener mItemSelectedListener = 
+		new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				mSelectedCommand = parent.getSelectedItem().toString(); 
+	            Log.i("opamp", "mSelectedCommand: " + mSelectedCommand);   
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		
+		};
 	/*===========================================================================
      * Function Name: getRemoteSiteInfo
      * 
@@ -419,4 +471,114 @@ public class OpticalAmpActivity extends Activity{
         sms.sendTextMessage(phoneNumber, null, message, sentIntent, receiptIntent);
     }
 
+	/*=============================================================================
+	 * Name: showAllRemoteSiteList
+	 * 
+	 * Description:
+	 * 		- Extract RemoteSiteDB and display items
+	 * 		
+	 *=============================================================================*/			
+	private void showAllCommandListToSpinner()
+	{
+		//mCursor = queryAllCommands(mCmdDatabase);
+		if(mOpAmpDevice.length() == 0)
+		{
+			Log.e("opamp", "mOpAmpDevice is null");
+		}
+		else
+		{
+			Log.i("opamp", "mOpAmpDevice=" + mOpAmpDevice);
+		}
+		
+		mCursor = queryCommandbyDevice(mOpAmpDevice);
+		Log.i("opamp", "DeviceCommandDB: Count= " + mCursor.getCount());	
+		
+		if(mCursor != null)
+		{
+			startManagingCursor(mCursor);
+			mCursor.moveToFirst();			
+		
+			String[] from = new String[] {DeviceCommandDB.COMMAND}; 
+			int[] to = new int[] {android.R.id.text1};
+			
+			SimpleCursorAdapter Adapter = null;
+			
+			try {
+				Adapter = new SimpleCursorAdapter(
+											mOpAmpCommandSpinner.getContext(),
+											android.R.layout.simple_spinner_item,
+											mCursor,	//Item으로 사용할 DB의 Cursor
+											from,	//DB 필드 이름
+											to);	//DB필드에 대응되는 xml TextView의 id
+			}
+			catch(Exception e)
+			{
+				Log.e("opamp", e.getMessage());
+			}
+			
+			mOpAmpCommandSpinner.setAdapter(Adapter);
+		}
+		else
+		{
+			Log.e("opamp", "mCursor is null.");
+		}
+		
+		//db.close();
+		
+	}
+	/*=============================================================================
+	 * Name: queryAllCommands
+	 * 
+	 * Description:
+	 * 		Query all items from DeviceCommandDB
+	 *=============================================================================*/	
+	private Cursor queryAllCommands(SQLiteDatabase db)
+	{
+		Cursor cursor = null;
+		cursor = db.rawQuery(" select * from " + DeviceCommandDB.TABLE_NAME + " order by "
+							+ DeviceCommandDB.DEFAULT_SORT_ORDER, null);
+		Log.i("opamp", "queryAll: cursor= " + cursor.getCount());
+		return cursor;
+	}
+	/*=============================================================================
+	 * Name: queryCommandbyDevice
+	 * 
+	 * Description:
+	 * 		Query items of specific device type from DeviceCommandDB
+	 *=============================================================================*/		
+	private Cursor queryCommandbyDevice(String devType)
+	{
+		Cursor cursor = null;
+	
+		String[] columns = new String[] { DeviceCommandDB.ID,
+										DeviceCommandDB.TYPE,
+										DeviceCommandDB.COMMAND };
+			
+		try 
+		{
+		    
+			Log.i("opamp", "devType= " + devType);
+			cursor = mCmdDatabase.query(DeviceCommandDB.TABLE_NAME, columns, 
+							DeviceCommandDB.TYPE + "=?", new String[]{devType},	null, null, null);
+			if(cursor.getCount() == 0)
+			{
+				cursor = null;
+			}
+			else
+			{
+				while(cursor.moveToNext())
+				{
+					Log.e("opamp", "index: " + cursor.getString(0));
+					Log.e("opamp", "type: " + cursor.getString(1));
+					Log.e("opamp", "command: " + cursor.getString(2));				
+				}
+			}
+		}
+		catch(SQLiteException e)
+		{
+			cursor = null;
+			Log.e("opamp", e.toString());	
+		}
+		return cursor;
+	}
 }
