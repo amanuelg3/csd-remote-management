@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, RemoteManagementActivity!</string>
+    <string name="app_name">Condroid V2.0</string>
+    <string name="version">ver 2.0</string>
+    <string name="software_description">The Condroid Remote Management System is a system that provides functionality to manage 
+	remotely located devices by an Android smart phone through GSM networks. 
+	This system support user-friendly GUI for end-users and this makes users control remote devices in a convenient way.
+	</string>
+	<string name="members">Members: Amir Roozbeh, Ekambar Selvakumar, Ericson Ferdinand Pasaribu,
+			Jung Chang Su, Mahsa Tabatabaei	and Rene Pavez Flores	
+	</string>
+</resources>

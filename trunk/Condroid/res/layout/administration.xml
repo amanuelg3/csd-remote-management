@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"    
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_wood" >
+    
+    <LinearLayout 
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content">
+    	<ImageView
+    		android:id="@+id/admin"
+    		android:src="@drawable/admin" 
+    		android:layout_gravity="center" 
+    		android:layout_width="50dp" 
+    		android:layout_height="50dp">
+    	</ImageView>
+		<TextView 
+			android:layout_width = "220dp"
+			android:layout_height="50dp"
+			android:text="Administration"
+			android:textColor="@color/text_color"
+			android:textAppearance="?android:attr/textAppearanceLarge"			
+			android:gravity="center|center_horizontal"
+			android:padding="5dp" />
+		<ImageButton
+    	    android:id="@+id/admin_home_image_button"
+    	    android:layout_width="50dp"
+    	    android:layout_height="50dp"
+    	    android:background="#00000000"
+    	    android:src="@drawable/home_64"
+    	    android:text="Home" />
+	</LinearLayout>
+	
+	 <!-- Separator -->
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="0.5dp"
+    	android:background="@color/gray_line" >    
+    </LinearLayout>
+    
+    <LinearLayout
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content">
+    	<TextView
+    		android:id="@+id/admin_location"
+    		android:layout_width = "100dp"
+    		android:layout_height="40dp"    		
+    		android:text = "Location"  
+    		android:textColor="@color/text_color"
+    		android:textAppearance="?android:attr/textAppearanceSmall"   		
+    		android:gravity="center"/>
+    	<TextView
+    		android:id="@+id/admin_phonenumber"
+    		android:layout_width = "100dp"
+    		android:layout_height="40dp"    		
+    		android:text = "Phone Number"
+    		android:textColor="@color/text_color"  
+    		android:textAppearance="?android:attr/textAppearanceSmall"   		
+    		android:gravity="center"/>
+    	<TextView
+    		android:id="@+id/admin_device"
+    		android:layout_width = "100dp"
+    		android:layout_height="40dp"    		
+    		android:text = "Device Type"
+    		android:textColor="@color/text_color"   
+    		android:textAppearance="?android:attr/textAppearanceSmall"  		
+    		android:gravity="center"/>    		
+    </LinearLayout>
+    
+    <!-- Separator -->
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="0.5dp"
+    	android:background="@color/gray_line" >    
+    </LinearLayout>
+      
+    <!-- Command EditText -->
+	<LinearLayout 
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" 
+		android:weightSum="1"		 
+		android:baselineAligned="false">
+		<TextView
+			android:layout_height="50dp"			
+    		android:text = "Command"
+    		android:textColor="@color/text_color"
+			android:padding="5dp" 
+			android:textAppearance="?android:attr/textAppearanceSmall" 
+			android:layout_width="wrap_content"
+			android:gravity="center"/>
+
+		<EditText
+		    android:id="@+id/admin_command_edit"
+		    android:layout_width="240dp"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center"
+		    android:inputType="phone"
+		    android:gravity="top"
+		    android:padding="10dp" />
+	
+	</LinearLayout>
+	
+	 <!-- Blank Layout -->
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="2dp">
+    </LinearLayout>
+    
+	<!-- Radio Group -->
+ <LinearLayout
+       	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content">	
+    <RadioGroup 
+    	android:id="@+id/radio_group_admin_cmd"
+    	android:layout_width="fill_parent"
+    	android:layout_height="50dp"
+    	android:orientation="horizontal"
+    	android:checkedButton="@+id/radio_add_number">
+	    <RadioButton
+	    	android:id="@+id/radio_add_number"
+	    	android:layout_width="100dp"
+	    	android:layout_height="wrap_content"
+	    	android:textAppearance="?android:attr/textAppearanceSmall"
+	    	android:text="Add" 
+	    	android:textColor="@color/text_color"
+	    	android:layout_gravity="center_vertical"/> 
+	    <RadioButton
+	    	android:id="@+id/radio_remove_number"
+	    	android:layout_width="100dp"
+	    	android:layout_height="wrap_content"
+	    	android:textAppearance="?android:attr/textAppearanceSmall"
+	    	android:text="Remove" 
+	    	android:textColor="@color/text_color"
+	    	android:layout_gravity="center_vertical"/>	        
+	    <RadioButton
+	    	android:id="@+id/radio_change_admin"
+	    	android:layout_width="100dp"
+	    	android:layout_height="wrap_content"
+	    	android:textAppearance="?android:attr/textAppearanceSmall"
+	    	android:text="Change Admin" 
+	    	android:textColor="@color/text_color"
+	    	android:layout_gravity="center_vertical"/> 
+    	</RadioGroup>    	
+    	
+    </LinearLayout>
+        
+	<!-- Buttons -->
+	<LinearLayout 
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content">
+    	<Button
+    			android:id="@+id/admin_cmd_send_button" 
+        		android:text="Send"
+        		android:layout_width="80dp" 
+        		android:layout_height="50dp"
+        		android:layout_gravity="center" 
+        		android:layout_weight="0.05"
+        		android:textAppearance="?android:attr/textAppearanceMedium"/>
+    	<Button
+    		android:id="@+id/admin_change_pincode_button" 
+        	android:text="Change Pincode"
+        	android:layout_width="80dp" 
+        	android:layout_height="50dp"
+        	android:layout_gravity="center" 
+        	android:layout_weight="0.05"
+        	android:textAppearance="?android:attr/textAppearanceSmall"/>
+    	 <Button
+    		android:id="@+id/admin_logout_button" 
+        	android:text="Logout"
+        	android:layout_width="80dp" 
+        	android:layout_height="50dp"
+        	android:layout_gravity="center" 
+        	android:layout_weight="0.05"
+        	android:textAppearance="?android:attr/textAppearanceMedium"/>    	
+    		
+    </LinearLayout>
+    
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="35dp"
+    	android:background="@color/transparent_30" >
+    	<TextView
+    		android:layout_width = "fill_parent"
+    		android:layout_height="fill_parent"    		
+    		android:text = "RESULT"
+    		android:textColor="@color/text_result"
+    		android:textAppearance="?android:attr/textAppearanceMedium" 		
+    		android:gravity="center"/>
+    </LinearLayout>    
+    
+    <ScrollView 			 
+  			android:layout_width="fill_parent"
+  			android:layout_height="248dp">
+  		<LinearLayout
+    			android:orientation="vertical"
+    			android:layout_width="fill_parent"
+    			android:layout_height="248dp">  			
+		<TextView
+			android:id="@+id/admin_result_text"
+    		android:layout_width = "fill_parent"
+    		android:layout_height="fill_parent"
+    		android:textColor="@color/white"    		
+    		/>	
+  		</LinearLayout>	
+	</ScrollView>
+</LinearLayout>

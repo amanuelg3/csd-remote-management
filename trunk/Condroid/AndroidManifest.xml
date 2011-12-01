@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="condroid.RemoteManagement"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="7" />
+	<uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    
+    <application android:icon="@drawable/icon" android:label="@string/app_name" 
+    			android:debuggable="true">
+    			
+    	<activity android:name=".Login" android:label="@string/app_name"
+    			android:screenOrientation="portrait">
+			<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+        	</intent-filter>
+        </activity>
+		
+    	 <activity android:name=".Home" android:label="Remote Management Home" 
+					android:windowSoftInputMode="stateHidden" android:screenOrientation="portrait">
+		</activity>
+		<activity android:name=".Authentication" android:label="Authentication" 
+					android:windowSoftInputMode="stateHidden" android:screenOrientation="portrait">
+		</activity>
+
+		<activity android:name=".RemoteManagementActivity" android:label="Remote Management System" 
+				android:windowSoftInputMode="stateHidden" android:screenOrientation="portrait">
+		</activity>
+				
+		<activity android:name=".CustomCmdActivity" android:label="Custom Command"
+				android:windowSoftInputMode="stateHidden" android:screenOrientation="portrait">
+		</activity>
+		
+		<activity android:name=".GUICmdActivity" android:label="GUI Command"
+				android:windowSoftInputMode="stateHidden" android:screenOrientation="portrait">
+		</activity>
+		
+		 <activity android:name=".Administration" android:label="Administration Command"
+		     android:windowSoftInputMode="stateHidden" android:screenOrientation="portrait">
+		     
+		 </activity>
+		<activity android:name=".GUICmdDBManagerActivity" android:label="Command DB Manager"
+				android:windowSoftInputMode="stateHidden" android:screenOrientation="portrait">
+		</activity>
+		
+		
+		<activity android:name=".RemoteSiteDBManagerActivity" android:label="Remote site DB Manager" 
+				android:windowSoftInputMode="stateHidden" android:screenOrientation="portrait">
+		</activity>
+				
+		<activity android:name=".About" android:label="About software"
+					android:screenOrientation="portrait">
+		</activity>
+		
+		<activity android:name=".Settings" android:label="Settings"
+				android:screenOrientation="portrait">
+		</activity>		
+		    				
+		<activity android:name=".SettingPassword" android:label="Change Password"
+					android:screenOrientation="portrait">
+		</activity>
+		<activity android:name=".SettingCommandHistory" android:label="Command history"
+		    	android:screenOrientation="portrait">		   
+		</activity>
+		
+		<activity android:name=".SettingRemoteSiteManager" android:label="Remote Site Management"
+				android:windowSoftInputMode="stateHidden" android:screenOrientation="portrait"> 
+		</activity>
+		    
+
+		<activity android:name=".SettingGUICmdManager" android:label="GUI Command Management"
+				android:windowSoftInputMode="stateHidden" android:screenOrientation="portrait"> 
+		</activity>
+		    		    
+    </application>
+</manifest>

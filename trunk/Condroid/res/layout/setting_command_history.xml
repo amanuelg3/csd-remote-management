@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_wood">
+    
+    <LinearLayout
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content">
+   		<ImageView
+    		android:src="@drawable/history" 
+    		android:layout_gravity="center" 
+    		android:layout_width="50dp" 
+    		android:layout_height="50dp"
+    		android:padding="10px">
+    	</ImageView>
+		<TextView 
+			android:layout_width = "220dp"
+			android:layout_height="50dp"
+			android:text="Command History"
+			android:padding="10px"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textColor="@color/text_color"
+			android:gravity="center|center_vertical" />
+		<ImageButton
+    	    android:id="@+id/history_home_image_button"
+    	    android:layout_width="50dp"
+    	    android:layout_height="50dp"
+    	    android:background="#00000000"
+    	    android:src="@drawable/home_64"
+    	    android:text="Home" />		
+	</LinearLayout>
+    
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="10dp">
+    </LinearLayout>
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="0.5dp"
+    	android:background="@color/gray_line">
+    </LinearLayout>
+
+    <LinearLayout 
+    	android:orientation="horizontal"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:background="@color/transparent_30"
+    	>
+    <TextView
+    	android:id="@+id/command_history_date"
+    	android:layout_width="80dp"
+    	android:layout_height="40dp"
+    	android:text="Date"
+    	android:textAppearance="?android:attr/textAppearanceSmall"
+    	android:textColor="@color/text_color"
+    	android:gravity="center"/>
+   	<TextView
+    	android:id="@+id/command_history_time"
+    	android:layout_width="60dp"
+    	android:layout_height="40dp"
+    	android:text="Time"
+    	android:textAppearance="?android:attr/textAppearanceSmall"
+    	android:textColor="@color/text_color"
+    	android:gravity="center" />
+   	<TextView
+    	android:id="@+id/command_history_phone"
+    	android:layout_width="90dp"
+    	android:layout_height="40dp"
+    	android:text="Server"
+    	android:textAppearance="?android:attr/textAppearanceSmall"
+    	android:textColor="@color/text_color"
+    	android:gravity="center"/>
+   	<TextView
+    	android:id="@+id/command_history_command"
+    	android:layout_width="90dp"
+    	android:layout_height="40dp"
+    	android:text="Command"
+    	android:textAppearance="?android:attr/textAppearanceSmall"
+    	android:textColor="@color/text_color"
+    	android:gravity="center"/>    	
+	</LinearLayout>
+	<!-- Blank Layout -->
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="0.5dp"
+    	android:background="@color/gray_line">
+    </LinearLayout>
+        
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="330dp"
+	    android:orientation="horizontal" 
+	    android:background="@color/transparent_10">    	
+    	<ListView
+    	    android:id="@+id/setting_command_history_listview"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="330dp" 
+    	    android:cacheColorHint="#00000000">
+		</ListView>	
+    </LinearLayout>  
+    
+    <!-- Button  -->
+     <LinearLayout
+       	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content">
+       	<Button 
+        	android:id="@+id/setting_history_delete_button" 
+        	android:text="Delete All"
+        	android:textAppearance="?android:attr/textAppearanceMedium"
+        	android:layout_width="100dp"
+        	android:layout_height="50dp" 
+        	android:layout_gravity="center"       	 
+        	android:layout_weight="1"/>
+        <Button
+        	android:id="@+id/setting_history_back_button"
+        	android:text="Back"
+        	android:textAppearance="?android:attr/textAppearanceMedium"
+        	android:layout_width="100dp"
+        	android:layout_height="50dp"
+        	android:layout_gravity="center"        	 
+        	android:layout_weight="1"/>    
+    </LinearLayout>
+    
+</LinearLayout>
