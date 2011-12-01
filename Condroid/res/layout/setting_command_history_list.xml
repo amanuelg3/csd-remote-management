@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent_10">
+    
+    <TextView
+    	android:id="@+id/command_history_date"
+    	android:layout_width="80dp"
+    	android:layout_height="40dp"
+    	android:textAppearance="?android:attr/textAppearanceSmall"
+    	android:gravity="left|center_vertical"
+    	android:textColor="@color/white" />
+   	<TextView
+    	android:id="@+id/command_history_time"
+    	android:layout_width="60dp"
+    	android:layout_height="40dp"
+    	android:textAppearance="?android:attr/textAppearanceSmall"
+    	android:gravity="left|center_vertical"
+    	android:textColor="@color/white"/>
+   	<TextView
+    	android:id="@+id/command_history_phone"
+    	android:layout_width="90dp"
+    	android:layout_height="40dp"
+    	android:textAppearance="?android:attr/textAppearanceSmall"
+    	android:gravity="center|center_vertical"
+    	android:padding="2px"
+    	android:textColor="@color/white"/>
+   	<TextView
+    	android:id="@+id/command_history_command"
+    	android:layout_width="90dp"
+    	android:layout_height="40dp"
+    	android:textAppearance="?android:attr/textAppearanceSmall"
+    	android:gravity="center|center_vertical"
+    	android:textColor="@color/white"/>
+   	
+    	
+</LinearLayout>
