@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_wood">
+    <!-- Setting: Remote site update -->
+    <LinearLayout 
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent" 
+    	android:layout_height="wrap_content" android:weightSum="1">
+    	<ImageView    		
+    		android:src="@drawable/new_db" 
+    		android:layout_gravity="center" 
+    		android:layout_width="50dp" 
+    		android:layout_height="50dp">
+    	</ImageView>
+		<TextView 
+			android:layout_width = "210dp"
+			android:layout_height="50dp"
+			android:text="Remote Site Management"
+			android:padding="2px"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:gravity="center|center_vertical" 
+			android:layout_weight="0.72"
+			android:textColor="@color/text_color"/>
+		<ImageButton
+    	    android:id="@+id/remote_site_home_image_button"
+    	    android:layout_width="50dp"
+    	    android:layout_height="50dp"
+    	    android:background="#00000000"
+    	    android:src="@drawable/home_64"
+    	    android:text="Home" />
+				
+    </LinearLayout>
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="5dp">
+    </LinearLayout>
+    
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="0.5dp"
+    	android:background="@color/gray_line">
+    </LinearLayout>
+    
+    <!-- Location -->
+    <LinearLayout 
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent" android:layout_height="wrap_content">
+    	<TextView
+    		android:layout_width = "140dp"
+    		android:layout_height="40dp"    		
+    		android:text = "Location"     
+    		android:textAppearance="?android:attr/textAppearanceMedium"		
+    		android:gravity="center"
+    		android:textColor="@color/text_color"/>
+    	<EditText 
+    		android:layout_width="170dp" 
+        	android:layout_height="wrap_content" 
+        	android:id="@+id/remote_site_location_text" 
+        	android:textAppearance="?android:attr/textAppearanceMedium"/>
+    		
+    </LinearLayout>
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="0.5dp"
+    	android:background="@color/gray_line">
+    </LinearLayout>
+    <!-- Remote site Phone Number -->
+	<LinearLayout
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content">    	
+    	<TextView
+    		android:layout_width = "140dp"
+    		android:layout_height="40dp"
+    		android:textColor="@color/text_color"
+    		android:text = "Phone Number"     		
+    		android:gravity="center"
+    		android:textAppearance="?android:attr/textAppearanceMedium"/>
+    		
+    	<EditText 
+    		android:layout_width="170dp" 
+        	android:layout_height="wrap_content" 
+        	android:id="@+id/remote_site_phone"        	
+        	android:inputType="phone"
+        	android:textAppearance="?android:attr/textAppearanceMedium"/>
+    </LinearLayout>
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="0.5dp"
+    	android:background="@color/gray_line">
+    </LinearLayout>
+    <!-- Radio Button -->
+    <LinearLayout
+       	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content">
+    	
+    	<!-- Radio Group -->
+    	<RadioGroup 
+    		android:id="@+id/radio_group_device"
+    		android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="horizontal"
+    		android:checkedButton="@+id/radio_optical_amp">
+	    	<RadioButton
+	    		android:id="@+id/radio_optical_amp"
+	    		android:layout_width="80dp"
+	    		android:layout_height="wrap_content"
+	    		android:textSize="16px"
+	    		android:text="Optical AMP" 
+	    		android:textColor="@color/text_color"
+	    		android:layout_gravity="center_vertical"/> 
+	    	<RadioButton
+	    		android:id="@+id/radio_wifi"
+	    		android:layout_width="80dp"
+	    		android:layout_height="wrap_content"
+	    		android:textSize="16px"
+	    		android:text="Wifi" 
+	    		android:textColor="@color/text_color"
+	    		android:layout_gravity="center_vertical"/>	        
+	    	<RadioButton
+	    		android:id="@+id/radio_water_sensor"
+	    		android:layout_width="80dp"
+	    		android:layout_height="wrap_content"
+	    		android:textSize="16px"
+	    		android:text="Water Sensor" 
+	    		android:textColor="@color/text_color"
+	    		android:layout_gravity="center_vertical"/> 
+	    	<RadioButton
+	    		android:id="@+id/radio_etc"
+	    		android:layout_width="80dp"
+	    		android:layout_height="wrap_content"
+	    		android:textSize="16px"
+	    		android:text="ETC" 
+	    		android:textColor="@color/text_color"
+	    		android:layout_gravity="center_vertical"/>
+    	</RadioGroup>    	
+    	
+    </LinearLayout>
+    
+    <!-- Button  -->
+     <LinearLayout
+       	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content">
+       	<Button 
+        	android:id="@+id/remote_site_add_button" 
+        	android:text="Add"
+        	android:textAppearance="?android:attr/textAppearanceMedium"
+        	android:layout_width="100dp"
+        	android:layout_height="50dp" 
+        	android:layout_gravity="center"         	 
+        	android:layout_weight="0.05"/>
+        <Button
+        	android:id="@+id/remote_site_clear_button"
+        	android:text="Clear"
+        	android:textAppearance="?android:attr/textAppearanceMedium"
+        	android:layout_width="100dp"
+        	android:layout_height="50dp"
+        	android:layout_gravity="center"        	 
+        	android:layout_weight="0.05"/>   
+        <Button
+    		android:id="@+id/remote_site_back_button" 
+        	android:text="Back"
+        	android:textAppearance="?android:attr/textAppearanceMedium"
+        	android:layout_width="120dp" 
+        	android:layout_height="50dp"
+        	android:layout_gravity="center" 
+        	android:layout_weight="0.05"/>
+        
+    </LinearLayout>
+    
+    <LinearLayout 
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="40dp"
+    	android:background="@color/transparent_30" >
+    	<TextView    		
+	    	android:layout_width="100dp"
+	    	android:layout_height="40dp"
+	    	android:text="Location"
+	    	android:textColor="@color/white"
+	    	android:textAppearance="?android:attr/textAppearanceSmall"
+	    	android:gravity="center|center_vertical"
+	    	/>
+	   	<TextView	    	
+	    	android:layout_width="160dp"
+	    	android:layout_height="40dp"
+	    	android:text="Phone number"
+	    	android:textColor="@color/white"
+	    	android:textAppearance="?android:attr/textAppearanceSmall"
+	    	android:gravity="center|center_vertical"
+	    	/>
+	   	<TextView	    	
+	    	android:layout_width="58dp"
+	    	android:layout_height="40dp"
+	    	android:text="Device"
+	    	android:textColor="@color/white"
+	    	android:textAppearance="?android:attr/textAppearanceSmall"
+	    	android:gravity="center|center_vertical"/>   	
+	</LinearLayout>
+	
+    <!-- ListView -->
+	    
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="286dp">
+		<ListView 
+			android:id="@+id/remote_site_list" 
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:transcriptMode="alwaysScroll"
+			android:cacheColorHint="#00000000">
+		</ListView>
+	</LinearLayout>
+	   
+</LinearLayout>	

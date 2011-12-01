@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"    
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_wood">
+    <!-- Blank layout -->
+    <LinearLayout
+        android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="10dp">
+    </LinearLayout>
+    
+    <!-- The first layout -->    
+    <LinearLayout
+        android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content">
+    	<TextView
+    	    android:layout_width="50dp"
+    	    android:layout_height="86dp">    	    
+    	</TextView>
+    	
+       	<ImageButton
+    	    android:id="@+id/home_authentication_button"
+    	    android:layout_width="86dp"
+    	    android:layout_height="86dp"
+    	    android:src="@drawable/auth_icon_types"
+    	    android:background="#00000000"
+    	    android:text="Authentication" 
+    	    android:gravity="center"    	    
+    	    android:padding="20dp"/>
+       	<TextView
+    	    android:layout_width="50dp"
+    	    android:layout_height="86dp">    	    
+    	</TextView>       	
+       	<ImageButton
+    	    android:id="@+id/home_setting_button"
+    	    android:layout_width="86dp"
+    	    android:layout_height="86dp"
+    	    android:background="#00000000"
+    	    android:src="@drawable/setting_icon_types"
+    	    android:text="Setting" 
+    	    android:gravity="center"    	    
+    	    android:padding="20dp"/>        
+    </LinearLayout>
+    
+    <!-- Texts of the first row -->
+	<LinearLayout
+        android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="20dp">
+    	<TextView
+    	    android:layout_width="40dp"
+    	    android:layout_height="20dp">    	    
+    	</TextView>
+    	<TextView
+    	    android:layout_width="100dp"
+    	    android:layout_height="20dp"
+    	    android:text="Authentication"
+    	    android:textAppearance="?android:attr/textAppearanceSmall"
+       	    android:textColor="@color/text_color"
+    	    android:gravity="center"/>
+    	
+        <TextView
+    	    android:layout_width="40dp"
+    	    android:layout_height="20dp"/>    	    
+    	
+    	<TextView
+    	    android:layout_width="100dp"
+    	    android:layout_height="20dp"
+    	    android:text="Setting"
+    	    android:textAppearance="?android:attr/textAppearanceSmall"
+    	    android:textColor="@color/text_color"
+    	    android:gravity="center"/>    	         	
+    </LinearLayout>
+            
+    <!-- Blank layout -->
+    <LinearLayout
+        android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="20dp">
+    </LinearLayout>
+        
+    <!-- The second row -->
+    <LinearLayout
+        android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content">
+    	<TextView
+    	    android:layout_width="50dp"
+    	    android:layout_height="86dp">    	    
+    	</TextView>
+       	<ImageButton
+    	    android:id="@+id/home_custom_button"
+    	    android:layout_width="86dp"
+    	    android:layout_height="86dp"
+    	    android:background="#00000000"
+    	    android:src="@drawable/custom_icon_types"
+    	    android:text="Custom" 
+    	    android:gravity="center"
+    	    
+    	    android:padding="20dp"/>
+       	<TextView
+    	    android:layout_width="50dp"
+    	    android:layout_height="86dp">    	    
+    	</TextView>       	
+       	<ImageButton
+    	    android:id="@+id/home_gui_button"
+    	    android:layout_width="86dp"
+    	    android:layout_height="86dp"
+    	    android:background="#00000000"
+    	    android:src="@drawable/gui_icon_types"
+    	    android:text="GUI" 
+    	    android:gravity="center"
+    	    
+    	    android:padding="20dp"/>        
+    </LinearLayout>
+    
+    <!-- Texts of the second row -->
+	<LinearLayout
+        android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="20dp">
+    	<TextView
+    	    android:layout_width="20dp"
+    	    android:layout_height="20dp">    	    
+    	</TextView>
+    	<TextView
+    	    android:layout_width="140dp"
+    	    android:layout_height="20dp"
+    	    android:text="Custom Command"
+    	    android:textAppearance="?android:attr/textAppearanceSmall"
+    	    android:textColor="@color/text_color"
+    	    android:gravity="center"/>    	
+        
+    	<TextView
+    	    android:layout_width="120dp"
+    	    android:layout_height="20dp"
+    	    android:text="GUI Command"
+    	    android:textAppearance="?android:attr/textAppearanceSmall"
+    	    android:textColor="@color/text_color"
+    	    android:gravity="center"/>    	         	
+    </LinearLayout>
+        
+   <!-- Blank layout -->
+    <LinearLayout
+        android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="20dp">
+    </LinearLayout>
+    
+    <!-- The third row -->
+    <LinearLayout
+        android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content">
+    	<TextView
+    	    android:layout_width="50dp"
+    	    android:layout_height="86dp">    	    
+    	</TextView>
+       	<ImageButton
+    	    android:id="@+id/home_admin_button"
+    	    android:layout_width="86dp"
+    	    android:layout_height="86dp"
+    	    android:background="#00000000"
+    	    android:src="@drawable/admin_icon_types"
+    	    android:text="Admin" 
+    	    android:gravity="center"    	    
+    	    android:padding="20dp"/>
+       	<TextView
+    	    android:layout_width="50dp"
+    	    android:layout_height="86dp">    	    
+    	</TextView>       	
+       	<ImageButton
+    	    android:id="@+id/home_about_button"
+    	    android:layout_width="86dp"
+    	    android:layout_height="86dp"
+    	    android:background="#00000000"
+    	    android:src="@drawable/about_icon_types"
+    	    android:text="About" 
+    	    android:gravity="center"
+    	    
+    	    android:padding="20dp"/>        
+    </LinearLayout>
+    <!-- Texts of the first row -->
+	<LinearLayout
+        android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="20dp">
+    	<TextView
+    	    android:layout_width="40dp"
+    	    android:layout_height="20dp">    	    
+    	</TextView>
+    	<TextView
+    	    android:layout_width="100dp"
+    	    android:layout_height="20dp"
+    	    android:text="Administration"
+    	    android:textAppearance="?android:attr/textAppearanceSmall"
+    	    android:textColor="@color/text_color"
+    	    android:gravity="center"/>
+    	
+        <TextView
+    	    android:layout_width="40dp"
+    	    android:layout_height="20dp"/>    	    
+    	
+    	<TextView
+    	    android:layout_width="100dp"
+    	    android:layout_height="20dp"
+    	    android:text="About"
+    	    android:textAppearance="?android:attr/textAppearanceSmall"
+    	    android:textColor="@color/text_color"
+    	    android:gravity="center"/>    	         	
+    </LinearLayout>      
+       <!-- Blank layout -->
+    <LinearLayout
+        android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="10dp">
+    </LinearLayout>
+	    
+
+    <!-- The fourth row -->
+    <LinearLayout
+        android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_gravity="center">
+       	<ImageButton
+    	    android:id="@+id/home_exit_button"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="60dp"
+    	    android:background="#00000000"
+    	    android:src="@drawable/exit_icon_types"
+    	    android:text="Exit"    	    
+    	    android:gravity="center"    	    
+    	    android:padding="2dp"/>
+    </LinearLayout>
+    
+    <!-- Texts of the fourth row -->
+	<LinearLayout
+        android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="20dp"
+    	android:layout_gravity="center">
+    	<TextView
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="20dp"
+    	    android:text="Exit"
+    	    android:textAppearance="?android:attr/textAppearanceSmall"
+    	    android:textColor="@color/text_color"
+    	    android:gravity="center"/>
+    </LinearLayout>      
+    	    
+ </LinearLayout>
